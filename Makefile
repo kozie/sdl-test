@@ -10,19 +10,19 @@ OBJ:=$(addprefix $(OBJP)/, $(OBJ))
 RC=.rc
 ICON=icon.ico
 BINP=bin
-RES=data.res
-EXEC=game.exe
+RES=$(OBJP)/data.res
+EXEC=$(BINP)/game.exe
 
 all: dirs $(OBJ) $(EXEC)
 
 $(EXEC): $(OBJ) $(RES)
-	$(CXX) $(OBJ) $(OBJP)/$(RES) -o $(BINP)/$(EXEC) $(LDFLAGS)
+	$(CXX) $(OBJ) $(RES) -o $(EXEC) $(LDFLAGS)
 
 $(OBJP)/%.o: $(SRCP)/%.cpp
 	$(CXX) $(CXXFLAGS) $< -o $@
 
 $(RES): $(ICON) $(RC)
-	windres $(RC) -O coff -o $(OBJP)/$(RES)
+	windres $(RC) -O coff -o $(RES)
 
 dirs:
 	mkdir -p $(OBJP)
