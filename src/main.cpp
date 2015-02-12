@@ -15,12 +15,12 @@ void init()
   renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
   
   // Set icon to window
-  SDL_Surface* surface;
-  SDL_RWops *rwop;
-  rwop = SDL_RWFromFile("icon.ico", "rb");
-  surface = IMG_LoadICO_RW(rwop);
-  SDL_SetWindowIcon(window, surface);
-  SDL_FreeSurface(surface);
+  // SDL_Surface* surface;
+  // SDL_RWops *rwop;
+  // rwop = SDL_RWFromFile("icon.ico", "rb");
+  // surface = IMG_LoadICO_RW(rwop);
+  // SDL_SetWindowIcon(window, surface);
+  // SDL_FreeSurface(surface);
 
   Vector a(12, 55, M_PI);
   Vector b(33, 24);

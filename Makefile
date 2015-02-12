@@ -1,23 +1,32 @@
-CC=g++
-CFLAGS=-c -Wall -lmingw32 -lSDL2main -lSDL2 -mwindows
+CXX=g++
+CXXFLAGS=-c -Wall -lmingw32 -lSDL2main -lSDL2 -mwindows
 LDFLAGS=-lmingw32 -lSDL2main -lSDL2 -mwindows
-SRC=main.cc vector.cc
-OBJ=$(SRC:.cc=.o)
+SRCP=src
+OBJP=obj
+SRC:=main.cpp vector.cpp
+OBJ:=$(SRC:%.cpp=%.o)
+SRC:=$(addprefix $(SRCP)/, $(SRC))
+OBJ:=$(addprefix $(OBJP)/, $(OBJ))
 RC=.rc
-RES=data.res
 ICON=icon.ico
+BINP=bin
+RES=data.res
 EXEC=game.exe
 
-all: $(SRC) $(EXEC)
+all: dirs $(OBJ) $(EXEC)
 
 $(EXEC): $(OBJ) $(RES)
-	$(CC) $(OBJ) $(RES) -o $(EXEC) $(LDFLAGS)
+	$(CXX) $(OBJ) $(OBJP)/$(RES) -o $(BINP)/$(EXEC) $(LDFLAGS)
 
-%.o: %.cc
-	$(CC) $(CFLAGS) $<
+$(OBJP)/%.o: $(SRCP)/%.cpp
+	$(CXX) $(CXXFLAGS) $< -o $@
 
 $(RES): $(ICON) $(RC)
-	windres $(RC) -O coff -o $(RES)
+	windres $(RC) -O coff -o $(OBJP)/$(RES)
+
+dirs:
+	mkdir -p $(OBJP)
+	mkdir -p $(BINP)
 
 clean:
-	rm -f *.o $(RES) $(EXEC)
+	rm -rf *.o $(OBJP) $(BINP) 
